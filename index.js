@@ -11,7 +11,7 @@ app.use(express.static(__dirname + '/views'));
 
 
 app.get('/payment', (req, res) => {
-    res.send("hello world") 
+    res.render("payment.ejs") 
 })
 
 
