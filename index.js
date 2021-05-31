@@ -100,7 +100,7 @@ app.get('/payment', (req, res) => {
         protocol: req.protocol,
         host: req.get('host')
     })
-    res.render("payment.ejs", {smallupi : requrl + '/smallupi', largeupi : requrl + '/largeupi'})
+    res.render("payment.ejs", { smallupi: requrl + '/smallupi', largeupi: requrl + '/largeupi' })
 })
 
 
@@ -119,9 +119,9 @@ app.post('/paymentinfo', urlencodedParser, function(req, res) {
         if (err) {
             res.send(JSON.stringify({ status: false }))
         } else {
-            var receipt = paymentfinal(req.body.email, req.body.transactionid, req.body.amount);
+            var receipt = paymentfinal(req.body.name, req.body.mobile, req.body.email, req.body.transactionid, req.body.amount);
             adminpayment(response)
-            res.send(JSON.stringify({ status: true , receipt : receipt}))
+            res.send(JSON.stringify({ status: true, receipt: receipt }))
         }
     })
 })
@@ -161,7 +161,7 @@ app.get('/largeupi', function(req, res) {
     }
 });
 
-function paymentfinal(email, transactionid, amount) {
+function paymentfinal(name, mobile, email, transactionid, amount) {
     receipt.config.currency = '₹';
     receipt.config.width = 100;
     receipt.config.ruler = '-';
@@ -179,6 +179,8 @@ function paymentfinal(email, transactionid, amount) {
         {
             type: 'properties',
             lines: [
+                { name: 'Name', value: name },
+                { name: 'Phone Number', value: mobile },
                 { name: 'Order Number', value: transactionid },
                 { name: 'Date', value: moment().format('MMMM Do YYYY, h:mm:ss a') }
             ]
@@ -201,7 +203,7 @@ function paymentfinal(email, transactionid, amount) {
         },
         { type: 'empty' },
         { type: 'text', value: 'Receipt sent to your email.' },
-        { type: 'text', value: 'Thank you for shopping at GATE202X Have a Good Day !!!'}
+        { type: 'text', value: 'Thank you for shopping at GATE202X Have a Good Day !!!' }
     ]);
 
     let mailTransporter = nodemailer.createTransport({
