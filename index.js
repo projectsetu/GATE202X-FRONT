@@ -121,7 +121,7 @@ app.post('/paymentinfo', urlencodedParser, function(req, res) {
         } else {
             var receipt = paymentfinal(req.body.email, req.body.transactionid, req.body.amount);
             adminpayment(response)
-            res.send(JSON.stringify({ status: true }))
+            res.send(JSON.stringify({ status: true , receipt : receipt}))
         }
     })
 })
@@ -190,17 +190,18 @@ function paymentfinal(email, transactionid, amount) {
             ]
         },
         { type: 'empty' },
-        { type: 'text', value: 'Subject to payment approval, Username and Password will be provided.', align: 'center' },
+        { type: 'text', value: 'Subject to payment approval, Username and Password will be provided.' },
         { type: 'empty' },
         {
             type: 'properties',
             lines: [
-                { name: 'Amount Received', value: 'INR ' + Math.floor(amount) + ".00" },
+                { name: 'Amount Paid', value: 'INR ' + Math.floor(amount) + ".00" },
                 { name: 'Amount Returned', value: 'INR 00.00' }
             ]
         },
         { type: 'empty' },
-        { type: 'text', value: 'Receipt sent to your email. Have a Good Day !!!', align: 'center', padding: 5 }
+        { type: 'text', value: 'Receipt sent to your email.' },
+        { type: 'text', value: 'Thank you for shopping at GATE202X Have a Good Day !!!'}
     ]);
 
     let mailTransporter = nodemailer.createTransport({
