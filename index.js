@@ -182,7 +182,7 @@ function paymentfinal(name, mobile, email, transactionid, amount) {
                 { name: 'Name', value: name },
                 { name: 'Phone Number', value: mobile },
                 { name: 'Order Number', value: transactionid },
-                { name: 'Date', value: moment().format('MMMM Do YYYY, h:mm:ss a') }
+                { name: 'Date', value: moment().format('MMMM Do YYYY, h:mm:ss a') + '(GMT)' }
             ]
         },
         {
