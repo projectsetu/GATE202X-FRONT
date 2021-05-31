@@ -182,13 +182,13 @@ function paymentfinal(name, mobile, email, transactionid, amount) {
                 { name: 'Name', value: name },
                 { name: 'Phone Number', value: mobile },
                 { name: 'Order Number', value: transactionid },
-                { name: 'Date', value: moment().format('MMMM Do YYYY, h:mm:ss a') + '(GMT)' }
+                { name: 'Date', value: moment().format('MMMM Do YYYY, h:mm:ss a') + ' (GMT) ' }
             ]
         },
         {
             type: 'table',
             lines: [
-                { item: 'GATE EXAM SIMULATOR 2021', qty: 1, cost: amount * 100 },
+                { item: 'GATE SIMULATOR 2021 (1 Month)', qty: 1, cost: amount * 100 },
             ]
         },
         { type: 'empty' },
