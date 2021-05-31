@@ -4,16 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Secure Pay</title>
+    <title>GATE 202X PAYMENT PAGE</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
-<body>
+<body onload="blink()">
     <div class="modal">
         <div class="modal__container">
             <div class="modal__featured">
@@ -23,45 +25,49 @@
                             <path fill="#ffffff" d="M1.293,15.293L11,5.586L12.414,7l-8,8H31v2H4.414l8,8L11,26.414l-9.707-9.707 C0.902,16.316,0.902,15.684,1.293,15.293z"></path>
                         </g>
                     </svg>
-                    <span class="visuallyhidden">Return to Product Page</span>
+                    <span class="visuallyhidden">Return to Test Series</span>
                 </button>
                 <div class="modal__circle"></div>
                 <img src="https://www.freeiconspng.com/uploads/rupees-symbol-png-33.png" class="modal__product" />
-                <img id="upi_pic" src="upi.png" width="100" height="100" style="cursor: pointer; position : absolute;  bottom: 35px; right: 50px">
+                <img id="upi_pic" src='<%= smallupi %>' width="100" height="100" style="cursor: pointer; position : absolute;  bottom: 35px; right: 50px">
             </div>
             <div class="modal__content">
-                <h2>UPI Payment</h2>
-                <form action="" method="POST">
+                <h2>Payment Checkout</h2>
+                <form action="" id="paymentjs">
                     <ul class="form-list">
                         <li class="form-list__row">
                             <label>Name</label>
-                            <input type="text" name="NAME" required="" value="" />
+                            <input type="text" required="" value="" name="name" />
                         </li>
                         <li class="form-list__row">
-                            <label>E-Mail</label>
-                            <input type="text" name="EMAIL" required="" value="" />
+                            <label>E-Mail (gmail)</label>
+                            <input type="email" required="" pattern=".+@gmail.com" value="" name="email" />
                         </li>
                         <li class="form-list__row">
                             <label>Phone</label>
-                            <input type="text" name="MOBILE_NO" required="" value="" />
+                            <input type="tel" required="" value="" name="mobile" maxlength="10" minlength="10" />
+                        </li>
+                        <li class="form-list__row">
+                            <label>Product</label>
+                            <input type="text" required="" value="GATE202X TEST SERIES" name="product" disabled />
                         </li>
                         <li class="form-list__row form-list__row--inline">
                             <div>
                                 <label>
-                                    Transaction ID
+                                    Transaction Number
                                 </label>
-                                <input type="text" name="PRODUCT_NAME" required="" value="" />
+                                <input type="text" required="" value="" name="transactionid" />
                             </div>
                             <div>
                                 <label>
-                                    Amount
+                                    Amount (INR)
                                 </label>
-                                <input type="text" name="TXN_AMOUNT" required="" value="" />
+                                <input type="number" required="" value="100" name="amount" disabled />
                             </div>
                         </li>
                         <li class="form-list__row form-list__row--agree">
                             <label>
-                                Scan upi code on right with any BHIM enabled app like Paytm, PhonePe 
+                                To pay for test series, click and scan upi code on right with any BHIM enabled app like Paytm, PhonePe. Order request copy will be sent to your email.
                             </label>
                         </li>
                         <li>
@@ -76,14 +82,40 @@
     <script src="js/index.js"></script>
     <script>
     $('#upi_pic').click(function() {
-        console.log("hi")
         Swal.fire({
-            imageUrl: 'upi.png',
+            imageUrl: '<%= largeupi %>',
             imageHeight: 500,
             imageAlt: 'UPI',
             showConfirmButton: false
         })
     });
+
+    $("#paymentjs").on("submit", function(e) {
+        post_data = $("#paymentjs").serializeArray();
+        $.post('/paymentinfo', post_data, function(data, e) {
+            var payment_status = JSON.parse(data);
+            if (payment_status.status) {
+                Swal.fire({
+                    title: 'Submitted!',
+                    text: 'Your order has been sent. Please wait for order approval in 1-2 hrs. A recipt of order has been sent to your email as well',
+                    imageUrl: 'https://media.tenor.com/images/2937002de7fc6e0224f35346142fb335/tenor.gif',
+                    imageWidth: 300,
+                    imageHeight: 200,
+                    imageAlt: 'Custom image',
+                })
+            } else {
+                Swal.fire({
+                    title: 'Failure!',
+                    text: 'Your order could not be sent, Please retry again and submit !!!',
+                    imageUrl: 'https://media.tenor.com/images/b3e9a8ad2e122df4ba3a2a2a01f7bb37/tenor.gif',
+                    imageWidth: 300,
+                    imageHeight: 200,
+                    imageAlt: 'Custom image',
+                })
+            }
+        })
+        e.preventDefault();
+    })
     </script>
 </body>
 
