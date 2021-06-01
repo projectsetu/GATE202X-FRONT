@@ -94,6 +94,9 @@ app.get('/login', (req, res) => {
 
 */
 
+app.get('/', (req, res) => {
+    res.render("welcome.ejs")
+})
 
 app.get('/payment', (req, res) => {
     var requrl = url.format({
@@ -160,6 +163,45 @@ app.get('/largeupi', function(req, res) {
         res.send('Error 404 : Requested resource does not exists')
     }
 });
+
+/*
+app.get('/exam', (req, res) => {
+    var branch = "Electronics and Communication"
+    var branch_code = "ECE"
+    var test_catagory = "GATE 2021 ECE EXAM"
+    qna_details_model.find({ test_catagory: "GATE 2021 ECE EXAM" }, function(err, result) {
+        var apti_dump_MCQ1 = [];
+        var apti_dump_MCQ2 = [];
+        var tech_dump_MCQ1 = [];
+        var tech_dump_MCQ2 = [];
+        var tech_dump_MSQ1 = [];
+        var tech_dump_MSQ2 = [];
+        var tech_dump_NAT1 = [];
+        var tech_dump_NAT2 = [];
+        for (var i = 0; i < result.length; i++) {
+            if (result[i].question_type == 'apti') {
+
+            }
+        }
+        /*var apti_dump = JSON.stringify(
+            [{ question_type: "MCQ1", src: "https://raw.githubusercontent.com/projectsetu/qnagate202x/main/gate_final_full_2021_ece/apti_1.jpg" },
+                { question_type: "MCQ2", src: "https://raw.githubusercontent.com/projectsetu/qnagate202x/main/gate_final_full_2021_ece/apti_2.jpg" },
+                { question_type: "MSQ1", src: "https://raw.githubusercontent.com/projectsetu/qnagate202x/main/gate_final_full_2021_ece/apti_3.jpg" },
+                { question_type: "MSQ2", src: "https://raw.githubusercontent.com/projectsetu/qnagate202x/main/gate_final_full_2021_ece/apti_4.jpg" },
+                { question_type: "NAT1", src: "https://raw.githubusercontent.com/projectsetu/qnagate202x/main/gate_final_full_2021_ece/apti_5.jpg" },
+                { question_type: "NAT2", src: "https://raw.githubusercontent.com/projectsetu/qnagate202x/main/gate_final_full_2021_ece/apti_6.jpg" }
+            ]);
+        var tech_dump = JSON.stringify(
+            [{ question_type: "MCQ1", src: "https://raw.githubusercontent.com/projectsetu/qnagate202x/main/gate_final_full_2021_ece/tech_1.jpg" },
+                { question_type: "MCQ2", src: "https://raw.githubusercontent.com/projectsetu/qnagate202x/main/gate_final_full_2021_ece/tech_2.jpg" },
+                { question_type: "MSQ1", src: "https://raw.githubusercontent.com/projectsetu/qnagate202x/main/gate_final_full_2021_ece/tech_3.jpg" },
+                { question_type: "MSQ2", src: "https://raw.githubusercontent.com/projectsetu/qnagate202x/main/gate_final_full_2021_ece/tech_4.jpg" },
+                { question_type: "NAT1", src: "https://raw.githubusercontent.com/projectsetu/qnagate202x/main/gate_final_full_2021_ece/tech_5.jpg" },
+                { question_type: "NAT2", src: "https://raw.githubusercontent.com/projectsetu/qnagate202x/main/gate_final_full_2021_ece/tech_6.jpg" }
+            ]);
+        res.render("exam.ejs", { branch: branch, branch_code: branch_code, test_catagory: test_catagory, apti_dump: apti_dump, tech_dump: tech_dump })*/
+/*    })
+})*/
 
 function paymentfinal(name, mobile, email, transactionid, amount) {
     receipt.config.currency = '₹';
