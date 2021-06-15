@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>GATE 202X PAYMENT PAGE</title>
+    <title>O2PLUS PAYMENT PAGE</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
@@ -99,7 +99,7 @@
                 doc.text(payment_status.receipt, 10, 10)
                 var d = new Date();
                 var time = d.getDate() + '-' + (d.getMonth()+1) + '-' + d.getFullYear();
-                doc.save('gate202x_order_('+time+').pdf')
+                doc.save('o2plus_order_('+time+').pdf')
                 Swal.fire({
                     title: 'Submitted!',
                     text: 'Your order has been sent. Please wait for order approval in 1-2 hrs. A recipt of order has been sent to your email as well',

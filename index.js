@@ -40,59 +40,6 @@ var payment_details_server = new Schema({
 var connect = mongoose.createConnection(process.env.PAYMENT_SESSION, { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true });
 var payment_details_model = connect.model('payment_details_model', payment_details_server);
 
-var qna_details_server = new Schema({
-    branch: String,
-    branch_code: String,
-    test_catagory: String,
-    question_type: String,
-    question_catagory: String,
-    subject: String,
-    src: String
-}, {
-    collection: 'qna_details'
-});
-
-
-var connect = mongoose.createConnection(process.env.QNA_SESSION, { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true });
-var qna_details_model = connect.model('qna_details_model', qna_details_server);
-
-
-
-/*
-app.get('/exam', (req, res) => {
-    var branch = "Electronics and Communication"
-    var branch_code = "ECE"
-    var test_catagory = "GATE 2021 ECE EXAM"
-    // apti till 5 is 1 mark and rest is 2 mark 
-    // tech till 25 is 1 mark and rest is 2 mark
-    qna_details_model.find({ test_catagory: test_catagory }, function(err, result) {
-        var apti_dump = JSON.stringify(
-            [{ question_type: "MCQ1", src: "https://raw.githubusercontent.com/projectsetu/qnagate202x/main/gate_final_full_2021_ece/apti_1.jpg" },
-                { question_type: "MCQ2", src: "https://raw.githubusercontent.com/projectsetu/qnagate202x/main/gate_final_full_2021_ece/apti_2.jpg" },
-                { question_type: "MSQ1", src: "https://raw.githubusercontent.com/projectsetu/qnagate202x/main/gate_final_full_2021_ece/apti_3.jpg" },
-                { question_type: "MSQ2", src: "https://raw.githubusercontent.com/projectsetu/qnagate202x/main/gate_final_full_2021_ece/apti_4.jpg" },
-                { question_type: "NAT1", src: "https://raw.githubusercontent.com/projectsetu/qnagate202x/main/gate_final_full_2021_ece/apti_5.jpg" },
-                { question_type: "NAT2", src: "https://raw.githubusercontent.com/projectsetu/qnagate202x/main/gate_final_full_2021_ece/apti_6.jpg" }
-            ]);
-        var tech_dump = JSON.stringify(
-            [{ question_type: "MCQ1", src: "https://raw.githubusercontent.com/projectsetu/qnagate202x/main/gate_final_full_2021_ece/tech_1.jpg" },
-                { question_type: "MCQ2", src: "https://raw.githubusercontent.com/projectsetu/qnagate202x/main/gate_final_full_2021_ece/tech_2.jpg" },
-                { question_type: "MSQ1", src: "https://raw.githubusercontent.com/projectsetu/qnagate202x/main/gate_final_full_2021_ece/tech_3.jpg" },
-                { question_type: "MSQ2", src: "https://raw.githubusercontent.com/projectsetu/qnagate202x/main/gate_final_full_2021_ece/tech_4.jpg" },
-                { question_type: "NAT1", src: "https://raw.githubusercontent.com/projectsetu/qnagate202x/main/gate_final_full_2021_ece/tech_5.jpg" },
-                { question_type: "NAT2", src: "https://raw.githubusercontent.com/projectsetu/qnagate202x/main/gate_final_full_2021_ece/tech_6.jpg" }
-            ]);
-        res.render("exam.ejs", { branch: branch, branch_code: branch_code, test_catagory: test_catagory, apti_dump: apti_dump, tech_dump: tech_dump })
-    })
-})
-
-app.get('/login', (req, res) => {
-    var username = "Sameer";
-    var test_catagory = "FULL SUBJECT TEST";
-    res.render("login.ejs", { username: username, test_catagory: test_catagory });
-})
-
-*/
 
 app.get('/', (req, res) => {
     res.render("welcome.ejs")
@@ -164,44 +111,6 @@ app.get('/largeupi', function(req, res) {
     }
 });
 
-/*
-app.get('/exam', (req, res) => {
-    var branch = "Electronics and Communication"
-    var branch_code = "ECE"
-    var test_catagory = "GATE 2021 ECE EXAM"
-    qna_details_model.find({ test_catagory: "GATE 2021 ECE EXAM" }, function(err, result) {
-        var apti_dump_MCQ1 = [];
-        var apti_dump_MCQ2 = [];
-        var tech_dump_MCQ1 = [];
-        var tech_dump_MCQ2 = [];
-        var tech_dump_MSQ1 = [];
-        var tech_dump_MSQ2 = [];
-        var tech_dump_NAT1 = [];
-        var tech_dump_NAT2 = [];
-        for (var i = 0; i < result.length; i++) {
-            if (result[i].question_type == 'apti') {
-
-            }
-        }
-        /*var apti_dump = JSON.stringify(
-            [{ question_type: "MCQ1", src: "https://raw.githubusercontent.com/projectsetu/qnagate202x/main/gate_final_full_2021_ece/apti_1.jpg" },
-                { question_type: "MCQ2", src: "https://raw.githubusercontent.com/projectsetu/qnagate202x/main/gate_final_full_2021_ece/apti_2.jpg" },
-                { question_type: "MSQ1", src: "https://raw.githubusercontent.com/projectsetu/qnagate202x/main/gate_final_full_2021_ece/apti_3.jpg" },
-                { question_type: "MSQ2", src: "https://raw.githubusercontent.com/projectsetu/qnagate202x/main/gate_final_full_2021_ece/apti_4.jpg" },
-                { question_type: "NAT1", src: "https://raw.githubusercontent.com/projectsetu/qnagate202x/main/gate_final_full_2021_ece/apti_5.jpg" },
-                { question_type: "NAT2", src: "https://raw.githubusercontent.com/projectsetu/qnagate202x/main/gate_final_full_2021_ece/apti_6.jpg" }
-            ]);
-        var tech_dump = JSON.stringify(
-            [{ question_type: "MCQ1", src: "https://raw.githubusercontent.com/projectsetu/qnagate202x/main/gate_final_full_2021_ece/tech_1.jpg" },
-                { question_type: "MCQ2", src: "https://raw.githubusercontent.com/projectsetu/qnagate202x/main/gate_final_full_2021_ece/tech_2.jpg" },
-                { question_type: "MSQ1", src: "https://raw.githubusercontent.com/projectsetu/qnagate202x/main/gate_final_full_2021_ece/tech_3.jpg" },
-                { question_type: "MSQ2", src: "https://raw.githubusercontent.com/projectsetu/qnagate202x/main/gate_final_full_2021_ece/tech_4.jpg" },
-                { question_type: "NAT1", src: "https://raw.githubusercontent.com/projectsetu/qnagate202x/main/gate_final_full_2021_ece/tech_5.jpg" },
-                { question_type: "NAT2", src: "https://raw.githubusercontent.com/projectsetu/qnagate202x/main/gate_final_full_2021_ece/tech_6.jpg" }
-            ]);
-        res.render("exam.ejs", { branch: branch, branch_code: branch_code, test_catagory: test_catagory, apti_dump: apti_dump, tech_dump: tech_dump })*/
-/*    })
-})*/
 
 function paymentfinal(name, mobile, email, transactionid, amount) {
     receipt.config.currency = '₹';
@@ -211,9 +120,9 @@ function paymentfinal(name, mobile, email, transactionid, amount) {
     const output = receipt.create([{
             type: 'text',
             value: [
-                'GATE202X TEST SERIES',
+                'O2Plus Android App',
                 sagar_email,
-                'https://gate202x.ml/payment'
+                'https://o2plus.ml/payment'
             ],
             align: 'center'
         },
@@ -230,11 +139,11 @@ function paymentfinal(name, mobile, email, transactionid, amount) {
         {
             type: 'table',
             lines: [
-                { item: 'GATE SIMULATOR 2021 (1 Month)', qty: 1, cost: amount * 100 },
+                { item: 'Cloud Automation Service (30 days)', qty: 1, cost: amount * 100 },
             ]
         },
         { type: 'empty' },
-        { type: 'text', value: 'Subject to payment approval, Username and Password will be provided.' },
+        { type: 'text', value: 'Subject to payment approval, 30 days of serverless cloud automation will be provided' },
         { type: 'empty' },
         {
             type: 'properties',
@@ -245,7 +154,7 @@ function paymentfinal(name, mobile, email, transactionid, amount) {
         },
         { type: 'empty' },
         { type: 'text', value: 'Receipt sent to your email.' },
-        { type: 'text', value: 'Thank you for shopping at GATE202X Have a Good Day !!!' }
+        { type: 'text', value: 'Thank you for shopping at O2Plus Have a Good Day !!!' }
     ]);
 
     let mailTransporter = nodemailer.createTransport({
@@ -260,7 +169,7 @@ function paymentfinal(name, mobile, email, transactionid, amount) {
     let mailDetails = {
         from: sagar_email,
         to: email,
-        subject: 'GATE202X PAYMENT RECEIPT - ' + transactionid,
+        subject: 'O2Plus PAYMENT RECEIPT - ' + transactionid,
         text: output
     };
 
